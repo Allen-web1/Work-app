@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<style>
+  body {
+    font-family: sans-serif;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 0 16px;
+    background: #f5f5f5;
+  }
+  h1 { font-size: 22px; }
+  input, button {
+    padding: 10px;
+    margin: 4px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  button {
+    background: #3378dd;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  ul { list-style: none; padding: 0; }
+  li {
+      background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+<head>
+  <meta charset="UTF-8">
+  <title>과제 마감 관리</title>
+</head>
+<body>
+
+  <h1>내 과제</h1>
+
+  <div>
+    <input id="subject" placeholder="과목">
+    <input id="title" placeholder="과제명">
+    <input id="due" type="date">
+    <button onclick="addTask()">추가</button>
+  </div>
+
+  <ul id="list"></ul>
+<script>
+  let tasks = [];
+
+  function addTask() {
+    let subject = document.getElementById("subject").value;
+    let title = document.getElementById("title").value;
+    let due = document.getElementById("due").value;
+
+    tasks.push({ subject: subject, title: title, due: due });
+
+    saveTasks();
+    render();
+  }
+
+  function deleteTask(index) {
+    tasks.splice(index, 1);
+    saveTasks();
+    render();
+  }
+
+  function saveTasks() {
+    localStorage.setItem("myTasks", JSON.stringify(tasks));
+  }
+
+  function loadTasks() {
+    let saved = localStorage.getItem("myTasks");
+    if (saved) {
+      tasks = JSON.parse(saved);
+    }
+  }
+
+  function render() {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+
+    for (let i = 0; i < tasks.length; i++) {
+      let task = tasks[i];
+
+      let today = new Date();
+      let dueDate = new Date(task.due);
+      let diffTime = dueDate - today;
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      let dday;
+      if (diffDays > 0) {
+        dday = "D-" + diffDays;
+      } else if (diffDays === 0) {
+        dday = "D-day";
+      } else {
+        dday = "지남";
+      }
+
+      let text = "[" + dday + "] " + task.subject + " - " + task.title + " (" + task.due + ")";
+
+      let li = document.createElement("li");
+      li.textContent = text;
+
+      if (diffDays <= 1) {
+        li.style.color = "red";
+      }
+
+      let deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "삭제";
+      deleteBtn.onclick = function() {
+        deleteTask(i);
+      };
+      li.appendChild(deleteBtn);
+
+      list.appendChild(li);
+    }
+  }
+
+  loadTasks();
+  render();
+
+</script>
+</body>
+</html>
