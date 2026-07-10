@@ -58,6 +58,15 @@
       width: auto;
       padding: 12px 28px;
     }
+    input[type="date"]:before {
+    content: "날짜 선택";
+    color: #c58fb2;
+    margin-right: 8px;
+  }
+  input[type="date"]:focus:before,
+  input[type="date"]:valid:before {
+    content: "";
+  }
     ul { list-style: none; padding: 0; }
     li {
       background: white;
