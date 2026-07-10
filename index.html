@@ -31,9 +31,14 @@
     border-radius: 12px;
     font-size: 14px;
   }
-  input, select, 	{
+  input, select {
     background: rgba(255, 255, 255, 0.75);
     color: #7a4b6e;
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
   }
   input::placeholder { color: #c58fb2; }
   button {
@@ -64,6 +69,7 @@
 </style>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>과제 마감 관리</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
