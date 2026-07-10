@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko">
-<style>
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px 16px 40px;
-    background: linear-gradient(160deg, #ffd9ec 0%, #e5c6f7 55%, #c9d4ff 100%);
-    min-height: 100vh;
-  }
-  h1 {
-    text-align: center;
-    font-size: 26px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #ff5fa2, #a05cff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-.subtitle {
-    text-align: center;
-    font-size: 13px;
-    color: #a34b86;
-    margin-top: -8px;
-  }
-  input, select, button {
-    padding: 11px;
-    margin: 4px 0;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-  }
-  input, select {
-    background: rgba(255, 255, 255, 0.75);
-    color: #7a4b6e;
-    appearance: none;
-    -webkit-appearance: none;
-    box-sizing: border-box;
-    width: 100%;
-    font-size: 16px;
-  }
-  input[type="date"] {
-    appearance: auto;
-    -webkit-appearance: auto;
-    color: #7a4b6e;
-    min-height: 46px;
-  }
-  input::placeholder { color: #c58fb2; }
-  button {
-    background: linear-gradient(90deg, #ff7fb6, #b57cff);
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  ul { list-style: none; padding: 0; }
-  li {
-    background: white;
-    border: none;
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin: 10px 0;
-    color: #4a3a52;
-    font-weight: 600;
-    box-shadow: 0 3px 10px rgba(200, 140, 200, 0.25);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  li button {
-    padding: 5px 12px;
-    font-size: 12px;
-    border-radius: 20px;
-  }
-</style>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>과제 마감 관리</title>
+  <title>내 과제 다이어리</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon.png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      background: linear-gradient(160deg, #ffd9ec 0%, #e5c6f7 55%, #c9d4ff 100%);
+      min-height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff5fa2, #a05cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: #a34b86;
+      margin-top: -8px;
+    }
+    input, select, button {
+      padding: 13px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 14px;
+      box-sizing: border-box;
+      width: 100%;
+      font-size: 16px;
+    }
+    select, input[type="text"] {
+      background: rgba(255, 255, 255, 0.75);
+      color: #7a4b6e;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input[type="date"] {
+      background: rgba(255, 255, 255, 0.75);
+      color: #7a4b6e;
+    }
+    input::placeholder { color: #c58fb2; }
+    button {
+      background: linear-gradient(90deg, #ff7fb6, #b57cff);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      width: auto;
+      padding: 12px 28px;
+    }
+    ul { list-style: none; padding: 0; }
+    li {
+      background: white;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      color: #4a3a52;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(200, 140, 200, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li button {
+      width: auto;
+      padding: 6px 14px;
+      font-size: 12px;
+      border-radius: 20px;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -95,109 +95,105 @@
     <select id="subject">
       <option value="">과목 선택</option>
     </select>
-    <input id="title" placeholder="과제명">
+    <input id="title" type="text" placeholder="과제명">
     <input id="due" type="date">
     <button onclick="addTask()">추가</button>
   </div>
 
   <ul id="list"></ul>
-<script>
-let subjectsByGrade = {
-    "1": ["국어", "수학", "영어", "통합사회", "통합과학", "한국사"],
-    "2": ["문학", "수학Ⅰ", "영어Ⅰ", "한국지리", "생명과학Ⅰ", "체육"],
-    "3": ["독서", "미적분", "영어Ⅱ", "사회문화", "화학Ⅰ", "정치와 법"]
-  };
 
-  function updateSubjects() {
-    let grade = document.getElementById("grade").value;
-    let subjectSelect = document.getElementById("subject");
+  <script>
+    let subjectsByGrade = {
+      "1": ["국어", "수학", "영어", "통합사회", "통합과학", "한국사"],
+      "2": ["문학", "수학Ⅰ", "영어Ⅰ", "한국지리", "생명과학Ⅰ", "체육"],
+      "3": ["독서", "미적분", "영어Ⅱ", "사회문화", "화학Ⅰ", "정치와 법"]
+    };
 
-    subjectSelect.innerHTML = "<option value=''>과목 선택</option>";
-
-    if (subjectsByGrade[grade]) {
-      for (let i = 0; i < subjectsByGrade[grade].length; i++) {
-        let name = subjectsByGrade[grade][i];
-        let option = document.createElement("option");
-        option.value = name;
-        option.textContent = name;
-        subjectSelect.appendChild(option);
+    function updateSubjects() {
+      let grade = document.getElementById("grade").value;
+      let subjectSelect = document.getElementById("subject");
+      subjectSelect.innerHTML = "<option value=''>과목 선택</option>";
+      if (subjectsByGrade[grade]) {
+        for (let i = 0; i < subjectsByGrade[grade].length; i++) {
+          let name = subjectsByGrade[grade][i];
+          let option = document.createElement("option");
+          option.value = name;
+          option.textContent = name;
+          subjectSelect.appendChild(option);
+        }
       }
     }
-  }
-  let tasks = [];
 
-  function addTask() {
-    let subject = document.getElementById("subject").value;
-    let title = document.getElementById("title").value;
-    let due = document.getElementById("due").value;
+    let tasks = [];
 
-    tasks.push({ subject: subject, title: title, due: due });
+    function addTask() {
+      let subject = document.getElementById("subject").value;
+      let title = document.getElementById("title").value;
+      let due = document.getElementById("due").value;
+      tasks.push({ subject: subject, title: title, due: due });
+      saveTasks();
+      render();
+    }
 
-    saveTasks();
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      saveTasks();
+      render();
+    }
+
+    function saveTasks() {
+      localStorage.setItem("myTasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      let saved = localStorage.getItem("myTasks");
+      if (saved) {
+        tasks = JSON.parse(saved);
+      }
+    }
+
+    function render() {
+      let list = document.getElementById("list");
+      list.innerHTML = "";
+      for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        let today = new Date();
+        let dueDate = new Date(task.due);
+        let diffTime = dueDate - today;
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        let dday;
+        if (diffDays > 0) {
+          dday = "D-" + diffDays;
+        } else if (diffDays === 0) {
+          dday = "D-day";
+        } else {
+          dday = "지남";
+        }
+
+        let text = "[" + dday + "] " + task.subject + " - " + task.title + " (" + task.due + ")";
+
+        let li = document.createElement("li");
+        li.textContent = text;
+
+        if (diffDays <= 1) {
+          li.style.color = "red";
+        }
+
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "삭제";
+        deleteBtn.onclick = function() {
+          deleteTask(i);
+        };
+        li.appendChild(deleteBtn);
+
+        list.appendChild(li);
+      }
+    }
+
+    loadTasks();
     render();
-  }
+  </script>
 
-  function deleteTask(index) {
-    tasks.splice(index, 1);
-    saveTasks();
-    render();
-  }
-
-  function saveTasks() {
-    localStorage.setItem("myTasks", JSON.stringify(tasks));
-  }
-
-  function loadTasks() {
-    let saved = localStorage.getItem("myTasks");
-    if (saved) {
-      tasks = JSON.parse(saved);
-    }
-  }
-
-  function render() {
-    let list = document.getElementById("list");
-    list.innerHTML = "";
-
-    for (let i = 0; i < tasks.length; i++) {
-      let task = tasks[i];
-
-      let today = new Date();
-      let dueDate = new Date(task.due);
-      let diffTime = dueDate - today;
-      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      let dday;
-      if (diffDays > 0) {
-        dday = "D-" + diffDays;
-      } else if (diffDays === 0) {
-        dday = "D-day";
-      } else {
-        dday = "지남";
-      }
-
-      let text = "[" + dday + "] " + task.subject + " - " + task.title + " (" + task.due + ")";
-
-      let li = document.createElement("li");
-      li.textContent = text;
-
-      if (diffDays <= 1) {
-        li.style.color = "red";
-      }
-
-      let deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "삭제";
-      deleteBtn.onclick = function() {
-        deleteTask(i);
-      };
-      li.appendChild(deleteBtn);
-
-      list.appendChild(li);
-    }
-  }
-
-  loadTasks();
-  render();
-
-</script>
 </body>
 </html>
